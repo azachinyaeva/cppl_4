@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_session.hpp>
+#include "catch2/matchers/catch_matchers.hpp"
 
 struct ListNode
 {
@@ -95,27 +96,13 @@ private:
     unsigned long m_size;
 };
 
+
 TEST_CASE("Check PopFront/PopBack empty", "[test_2]") {
     List list;
     INFO("Check PopFront/PopBack empty");
 
-    try
-    {
-        list.PopBack();
-    }
-    catch (std::runtime_error err)
-    {
-        CHECK(list.Empty() == true);
-    }
-
-    try
-    {
-        list.PopFront();
-    }
-    catch (std::runtime_error err)
-    {
-        CHECK(list.Empty() == true);
-    }
+    CHECK_THROWS_WITH(list.PopFront(), "list is empty");
+    CHECK_THROWS_WITH(list.PopBack(), "list is empty");
 
 }
 
